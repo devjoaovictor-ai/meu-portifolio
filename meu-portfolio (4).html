@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>João Victor | Engenharia de Software</title>
+<style>
+:root {
+  /* Paleta Clean / Corporativa (Tons de Azul e Cinza) - tema escuro fixo */
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --accent: #3b82f6;
+  --accent2: #60a5fa;
+  --line: #334155;
+  --term: #020617;
+  --termtxt: #f8fafc;
+  color-scheme: dark;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  /* Fonte sem serifa clássica e limpa */
+  font: 16px/1.7 "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; border-bottom: 1px solid var(--line); margin-bottom: 40px;
+}
+nav b { font-family: ui-monospace, Menlo, Consolas, monospace; color: var(--accent); font-size: 18px; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+nav a:hover { color: var(--accent); }
+
+.hero { display: grid; gap: 40px; grid-template-columns: 1fr 1fr; align-items: center; padding: 20px 0 64px; }
+@media(max-width: 760px) { .hero { grid-template-columns: 1fr; } nav a:not(:last-child) { display: none; } }
+
+.tag {
+  display: inline-block; font: 12px ui-monospace, Menlo, Consolas, monospace;
+  color: var(--accent); background: var(--card); border: 1px solid var(--line);
+  padding: 4px 12px; border-radius: 4px; font-weight: 600; letter-spacing: 0.5px;
+}
+
+h1 { font-size: clamp(32px, 5vw, 46px); line-height: 1.15; margin: 16px 0; color: var(--text); letter-spacing: -0.5px; }
+h1 span { color: var(--accent); } /* Sem gradiente, sólido e profissional */
+
+.lead { color: var(--muted); max-width: 48ch; font-size: 17px; }
+
+.btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn {
+  display: inline-block; padding: 10px 20px; border-radius: 6px; text-decoration: none;
+  font-weight: 500; font-size: 15px; border: 1px solid var(--line); color: var(--text);
+  background: var(--bg); transition: all 0.2s;
+}
+.btn:hover { border-color: var(--muted); }
+.btn.p { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn.p:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-1px); box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
+
+.term {
+  background: var(--term); color: var(--termtxt); border-radius: 8px;
+  border: 1px solid var(--line); overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+}
+.bar { display: flex; gap: 8px; padding: 12px 16px; background: rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+.bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+.bar i:nth-child(2) { background: #febc2e; }
+.bar i:nth-child(3) { background: #28c840; }
+.term pre {
+  margin: 0; padding: 20px; min-height: 220px; font: 13px/1.6 ui-monospace, Menlo, Consolas, monospace;
+  white-space: pre-wrap; overflow-x: auto; color: #e2e8f0;
+}
+/* Cores corporativas para o código no terminal */
+.k { color: #93c5fd; } .s { color: #a7f3d0; } .n { color: #fdf4ff; } .c { color: #64748b; }
+.cur { display: inline-block; width: 8px; height: 15px; background: var(--accent); vertical-align: middle; animation: b 1s steps(1) infinite; }
+@keyframes b { 50% { opacity: 0; } }
+
+section { padding: 60px 0; border-top: 1px solid var(--line); }
+h2 { font-size: 26px; margin: 0 0 8px; color: var(--text); letter-spacing: -0.5px; }
+h2 small { font: 14px ui-monospace, Menlo, Consolas, monospace; color: var(--accent); margin-right: 10px; opacity: 0.8; }
+.sub { color: var(--muted); margin: 0 0 32px; font-size: 16px; }
+
+.grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 24px; transition: all 0.2s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.card h3 { margin: 0 0 8px; font-size: 18px; color: var(--text); }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.badge {
+  display: inline-block; margin-top: 16px; font: 12px ui-monospace, Menlo, Consolas, monospace;
+  color: #93c5fd; background: rgba(59, 130, 246, 0.15); padding: 4px 10px;
+  border-radius: 4px; font-weight: 500;
+}
+.soon { border-style: dashed; background: transparent; }
+
+footer { padding: 40px 0; color: var(--muted); font-size: 14px; text-align: center; border-top: 1px solid var(--line); }
+@media(prefers-reduced-motion: reduce) { * { animation: none!important; transition: none!important; scroll-behavior: auto!important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><b>&lt;/dev&gt;</b><div><a href="#sobre">sobre</a><a href="#stack">stack</a><a href="#projetos">projetos</a><a href="#contato">contato</a></div></nav>
+
+<header class="hero">
+<div>
+<span class="tag">whoami</span>
+<h1>Olá, eu sou <span id="nome">João Victor</span></h1>
+<p class="lead">Tenho 21 anos, estou começando Engenharia de Software e aprendendo Java e Python. Este portfólio cresce junto comigo.</p>
+<div class="btns">
+<a class="btn p" href="#contato">Vamos conversar</a>
+<a class="btn" id="hGithub" href="#" target="_blank" rel="noopener">GitHub</a>
+</div>
+</div>
+<div class="term" aria-hidden="true">
+<div class="bar"><i></i><i></i><i></i></div>
+<pre id="code"></pre>
+</div>
+</header>
+
+<section id="sobre">
+<h2><small>01</small>Sobre mim</h2>
+<p class="sub">Ponto de partida e foco profissional.</p>
+<div class="grid">
+<div class="card"><h3>Formação</h3><p>Cursando Engenharia de Software (início da graduação).</p></div>
+<div class="card"><h3>Idade</h3><p>21 anos.</p></div>
+<div class="card"><h3>Foco atual</h3><p>Lógica com Java e gráficos com o perceptron em Python.</p></div>
+</div>
+</section>
+
+<section id="stack">
+<h2><small>02</small>Stack</h2>
+<p class="sub">Front-end e back-end, do que já estudo e pratico.</p>
+<div class="grid">
+<div class="card"><h3>HTML</h3><p>Estrutura e conteúdo de páginas web.</p><span class="badge">front-end</span></div>
+<div class="card"><h3>CSS</h3><p>Estilo e layout de páginas web.</p><span class="badge">front-end</span></div>
+<div class="card"><h3>Java</h3><p>Base em lógica com Java: funções, arrays e loops aplicados na resolução de problemas.</p><span class="badge">back-end</span></div>
+<div class="card"><h3>Python</h3><p>Estudando o perceptron, a base das redes neurais, com gráficos para visualizar como ele aprende.</p><span class="badge">back-end</span></div>
+</div>
+</section>
+
+<section id="projetos">
+<h2><small>03</small>Projetos</h2>
+<p class="sub">Aplicações práticas. Em breve com links para repositórios.</p>
+<div class="grid">
+<div class="card soon"><h3>Projeto 01</h3><p>Em construção. Será publicado no GitHub.</p><span class="badge">em breve</span></div>
+<div class="card soon"><h3>Projeto 02</h3><p>Em construção. Será publicado no GitHub.</p><span class="badge">em breve</span></div>
+</div>
+</section>
+
+<section id="contato">
+<h2><small>04</small>Contato</h2>
+<p class="sub">Canais de comunicação e redes.</p>
+<div class="btns" id="links"></div>
+</section>
+
+<footer>© <span id="ano"></span> <span id="nome2">João Victor Pereira Gonçalves</span> · Desenvolvido com HTML, CSS e JS</footer>
+</div>
+
+<script>
+// Edite apenas este bloco com seus dados reais.
+const CONFIG = {
+  nome: "João Victor Pereira Gonçalves",
+  gmail: "dev.victorjoao@gmail.com",
+  instagram: "j0a0_vpg",
+  github: "devjoaovictor-ai",
+  whatsapp: "5541988866704"
+};
+
+const links = [
+  ["Gmail", "mailto:" + CONFIG.gmail],
+  ["Instagram", "https://instagram.com/" + CONFIG.instagram],
+  ["GitHub", "https://github.com/" + CONFIG.github],
+  ["WhatsApp", "https://wa.me/" + CONFIG.whatsapp]
+];
+
+document.getElementById("nome").textContent = CONFIG.nome.split(" ").slice(0, 2).join(" ");
+document.getElementById("nome2").textContent = CONFIG.nome;
+document.getElementById("ano").textContent = new Date().getFullYear();
+document.getElementById("hGithub").href = links[2][1];
+const box = document.getElementById("links");
+links.forEach(([label, href], i) => {
+  const a = document.createElement("a");
+  a.className = "btn" + (i === 0 ? " p" : "");
+  a.textContent = label;
+  a.href = href;
+  if (href.startsWith("http")) { a.target = "_blank"; a.rel = "noopener"; }
+  box.appendChild(a);
+});
+
+const src = [
+  '<span class="c"># perfil.py</span>',
+  '<span class="k">class</span> Dev:',
+  '    nome  = <span class="s">"' + CONFIG.nome + '"</span>',
+  '    idade = <span class="n">21</span>',
+  '    curso = <span class="s">"Engenharia de Software"</span>',
+  '    front = [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>]',
+  '    back  = [<span class="s">"Java"</span>, <span class="s">"Python"</span>]',
+  '',
+  '<span class="k">print</span>(<span class="s">"Hello, world!"</span>)'
+];
+const el = document.getElementById("code");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const html = src.join("\n");
+if (reduce) { el.innerHTML = html + '<span class="cur"></span>'; }
+else {
+  let i = 0, out = "";
+  (function type() {
+    if (i >= html.length) { el.innerHTML = html + '<span class="cur"></span>'; return; }
+    if (html[i] === "<") { const j = html.indexOf(">", i); out += html.slice(i, j + 1); i = j + 1; }
+    else { out += html[i++]; }
+    el.innerHTML = out + '<span class="cur"></span>';
+    setTimeout(type, 28);
+  })();
+}
+</script>
+</body>
+</html>
